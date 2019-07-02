@@ -5,8 +5,8 @@ ext {
 
     publishedGroupId = 'xyz.truenight.utils'
 
-    siteUrl = 'https://github.com/TrueNight/DataBinding'
-    gitUrl = 'https://github.com/TrueNight/DataBinding.git'
+    siteUrl = 'https://github.com/TrueNight/Optional-Kt'
+    gitUrl = 'https://github.com/TrueNight/Optional-Kt.git'
 
     developerId = 'TrueNight'
     developerName = 'Mikhail Frolov'
