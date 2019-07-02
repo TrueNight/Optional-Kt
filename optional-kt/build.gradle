@@ -1,0 +1,18 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+ext {
+    bintrayName = 'optional-kt'
+    libraryName = 'Optional Kotlin'
+    artifact = 'optional-kt' // should be same as module name
+    libraryDescription = 'Optional and safe operations with nullable types for Kotlin'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
+apply from: '../ext.gradle'
+apply from: '../publish.gradle'
