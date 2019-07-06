@@ -70,4 +70,4 @@ class Optional<T : Any> private constructor(val value: T?) {
     }
 }
 
-fun <T> T?.toOptional() = Optional.ofNullable(this)
+fun <T : Any> T?.toOptional() = Optional.ofNullable(this)
