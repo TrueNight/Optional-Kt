@@ -1,6 +1,6 @@
 package xyz.truenight.utils.optional
 
-class Optional<T> private constructor(val value: T?) {
+class Optional<T : Any> private constructor(val value: T?) {
 
     @get:JvmName("get")
     val get: T
@@ -18,11 +18,11 @@ class Optional<T> private constructor(val value: T?) {
         return if (!present || predicate(value)) this else empty()
     }
 
-    fun <U> map(function: (T) -> U): Optional<U> {
+    fun <U : Any> map(function: (T) -> U): Optional<U> {
         return if (value == null) empty() else ofNullable(function(value))
     }
 
-    fun <U> flatMap(function: (T) -> Optional<U>): Optional<U> {
+    fun <U : Any> flatMap(function: (T) -> Optional<U>): Optional<U> {
         return if (value == null) empty() else function(value)
     }
 
@@ -59,14 +59,14 @@ class Optional<T> private constructor(val value: T?) {
         private val EMPTY: Optional<*> = Optional(null)
 
         @JvmStatic
-        fun <T> of(elem: T): Optional<T> = Optional(elem)
+        fun <T : Any> of(elem: T): Optional<T> = Optional(elem)
 
         @JvmStatic
-        fun <T> ofNullable(elem: T?): Optional<T> = if (elem == null) empty() else of(elem)
+        fun <T : Any> ofNullable(elem: T?): Optional<T> = if (elem == null) empty() else of(elem)
 
         @JvmStatic
         @Suppress("UNCHECKED_CAST")
-        fun <T> empty(): Optional<T> = EMPTY as Optional<T>
+        fun <T : Any> empty(): Optional<T> = EMPTY as Optional<T>
     }
 }
 
