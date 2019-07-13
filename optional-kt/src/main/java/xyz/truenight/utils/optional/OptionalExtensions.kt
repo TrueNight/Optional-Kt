@@ -14,9 +14,9 @@ inline fun Int?.safe(default: () -> Int = { 0 }) = this ?: default()
 
 inline fun Long?.safe(default: () -> Long = { 0L }) = this ?: default()
 
-inline fun Float?.safe(default: () -> Float = { 0.toFloat() }) = this ?: default()
+inline fun Float?.safe(default: () -> Float = { 0F }) = this ?: default()
 
-inline fun Double?.safe(default: () -> Double = { 0.toDouble() }) = this ?: default()
+inline fun Double?.safe(default: () -> Double = { 0.0 }) = this ?: default()
 
 inline fun String?.safe(default: () -> String = { "" }) = this ?: default()
 
@@ -50,26 +50,26 @@ inline fun <K, V> Map<K, V>?.safe(default: () -> Map<K, V> = { emptyMap() }): Ma
     ?: default()
 
 inline fun <E> List<E>?.safeMutable(default: () -> MutableList<E> = { mutableListOf() }): MutableList<E> =
-    (if (this is MutableList<E>) this else this?.toMutableList()) ?: default()
+    this as? MutableList<E> ?: this?.toMutableList() ?: default()
 
 inline fun <K, V> Map<K, V>?.safeMutable(default: () -> MutableMap<K, V> = { mutableMapOf() }): MutableMap<K, V> =
-    (if (this is MutableMap<K, V>) this else this?.toMutableMap()) ?: default()
+    this as? MutableMap<K, V> ?: this?.toMutableMap() ?: default()
 
 /**
  * CHECKERS
  */
 
-fun CharSequence?.isNotNullOrEmpty() = !isNullOrEmpty()
+fun CharSequence?.isNotEmpty() = !isNullOrEmpty()
 
-fun CharSequence?.isNotNullOrBlank() = !isNullOrBlank()
-
-fun <E> List<E>?.isNotNullOrEmpty() = this != null && isNotEmpty()
+fun CharSequence?.isNotBlank() = !isNullOrBlank()
 
 fun <E> List<E>?.isNullOrEmpty(): Boolean = this == null || isEmpty()
 
-fun <K, V> Map<K, V>?.isNotNullOrEmpty() = this != null && isNotEmpty()
+fun <E> List<E>?.isNotEmpty() = !isNullOrEmpty()
 
 fun <K, V> Map<K, V>?.isNullOrEmpty() = this == null || isEmpty()
+
+fun <K, V> Map<K, V>?.isNotEmpty() = !isNullOrEmpty()
 
 fun <T> T?.isNull() = this == null
 

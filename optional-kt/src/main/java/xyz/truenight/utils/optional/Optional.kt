@@ -56,7 +56,7 @@ class Optional<T : Any> private constructor(val value: T?) {
 
 
     companion object {
-        private val EMPTY: Optional<*> = Optional(null)
+        private val EMPTY: Optional<*> by lazy { Optional(null) }
 
         @JvmStatic
         fun <T : Any> of(elem: T): Optional<T> = Optional(elem)
