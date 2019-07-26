@@ -1,5 +1,8 @@
 package xyz.truenight.utils.optional
 
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
+
 /**
  * SAFE
  */
@@ -59,21 +62,77 @@ inline fun <K, V> Map<K, V>?.safeMutable(default: () -> MutableMap<K, V> = { mut
  * CHECKERS
  */
 
-fun CharSequence?.isNotEmpty() = !isNullOrEmpty()
+@UseExperimental(ExperimentalContracts::class)
+fun CharSequence?.isNotEmpty(): Boolean {
+    contract {
+        returns(true) implies (this@isNotEmpty != null)
+    }
 
-fun CharSequence?.isNotBlank() = !isNullOrBlank()
+    return !isNullOrEmpty()
+}
 
-fun <E> List<E>?.isNullOrEmpty(): Boolean = this == null || isEmpty()
+@UseExperimental(ExperimentalContracts::class)
+fun CharSequence?.isNotBlank(): Boolean {
+    contract {
+        returns(true) implies (this@isNotBlank != null)
+    }
 
-fun <E> List<E>?.isNotEmpty() = !isNullOrEmpty()
+    return !isNullOrBlank()
+}
 
-fun <K, V> Map<K, V>?.isNullOrEmpty() = this == null || isEmpty()
+@UseExperimental(ExperimentalContracts::class)
+fun <E> Collection<E>?.isNullOrEmpty(): Boolean {
+    contract {
+        returns(false) implies (this@isNullOrEmpty != null)
+    }
 
-fun <K, V> Map<K, V>?.isNotEmpty() = !isNullOrEmpty()
+    return this == null || isEmpty()
+}
 
-fun <T> T?.isNull() = this == null
+@UseExperimental(ExperimentalContracts::class)
+fun <E> Collection<E>?.isNotEmpty(): Boolean {
+    contract {
+        returns(true) implies (this@isNotEmpty != null)
+    }
 
-fun <T> T?.isNotNull() = this != null
+    return !isNullOrEmpty()
+}
+
+@UseExperimental(ExperimentalContracts::class)
+fun <K, V> Map<K, V>?.isNullOrEmpty(): Boolean {
+    contract {
+        returns(false) implies (this@isNullOrEmpty != null)
+    }
+
+    return this == null || isEmpty()
+}
+
+@UseExperimental(ExperimentalContracts::class)
+fun <K, V> Map<K, V>?.isNotEmpty(): Boolean {
+    contract {
+        returns(true) implies (this@isNotEmpty != null)
+    }
+
+    return !isNullOrEmpty()
+}
+
+@UseExperimental(ExperimentalContracts::class)
+fun <T> T?.isNull(): Boolean {
+    contract {
+        returns(false) implies (this@isNull != null)
+    }
+
+    return this == null
+}
+
+@UseExperimental(ExperimentalContracts::class)
+fun <T> T?.isNotNull(): Boolean {
+    contract {
+        returns(true) implies (this@isNotNull != null)
+    }
+
+    return this != null
+}
 
 /**
  * ACTIONS
