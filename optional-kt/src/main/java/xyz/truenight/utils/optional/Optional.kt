@@ -2,9 +2,8 @@ package xyz.truenight.utils.optional
 
 class Optional<T : Any> private constructor(val value: T?) {
 
-    @get:JvmName("get")
-    val get: T
-        get() = value ?: throw NoSuchElementException("No value present")
+    @JvmName("get")
+    fun get(): T = value ?: throw NoSuchElementException("No value present")
 
     @get:JvmName("isPresent")
     val present
