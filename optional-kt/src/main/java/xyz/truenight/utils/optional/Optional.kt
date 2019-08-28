@@ -13,11 +13,11 @@ class Optional<T : Any> private constructor(val value: T?) {
         if (value != null) consumer(value)
     }
 
-    fun filter(predicate: (T?) -> Boolean): Optional<T> {
-        return if (!present || predicate(value)) this else empty()
+    fun filter(predicate: (T) -> Boolean): Optional<T> {
+        return if (value == null || predicate(value)) this else empty()
     }
 
-    fun <U : Any> map(function: (T) -> U): Optional<U> {
+    fun <U : Any> map(function: (T) -> U?): Optional<U> {
         return if (value == null) empty() else ofNullable(function(value))
     }
 
@@ -25,11 +25,11 @@ class Optional<T : Any> private constructor(val value: T?) {
         return if (value == null) empty() else function(value)
     }
 
-    fun orElse(elem: T): T {
+    fun orElse(elem: T?): T? {
         return this.value ?: elem
     }
 
-    fun orElseGet(supplier: () -> T): T {
+    fun orElseGet(supplier: () -> T?): T? {
         return this.value ?: supplier()
     }
 
